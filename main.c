@@ -4,13 +4,17 @@
 #include "game.h"
 
 void read_rules();
-void show_hand(Player *p1);
+void show_hand(Player *pl);
 
 int main(){
 
 	Player p1, p2;
 	char answer;
 	int round = 0;
+
+	//criar player
+	init_player(&p1, allcards);
+	init_player(&, allcards);
 
 	//tela inicial
 	printf("\n CARD-JITSU \n\n");
@@ -81,21 +85,33 @@ void read_rules(){
 	printf("Em cada rodada os jogadores devem escolher uma cartasem que seu adversário saiba qual foi.\n\n");
 
 	printf("As cartas escolhidas entrarão em disputa ganhando pela regra de prioridade:\n");
-	printf("1. Elementos diferentes - água vence fogo, fogo vence gelo e gelo vence água(como em pedra, papel e tesoura).\n");
-	printf("2. Maior valor - caso os elementos das cartas escolhidas sejam iguais, ganhará a carta de maior valor.\n");
-	printf("3. Caso ambos sejam iguais, é um empate técnico e ninguém obtem vitória.\n");
+	printf("\t1. Elementos diferentes - água vence fogo, fogo vence gelo e gelo vence água(como em pedra, papel e tesoura).\n");
+	printf("\t2. Maior valor - caso os elementos das cartas escolhidas sejam iguais, ganhará a carta de maior valor.\n");
+	printf("\t3. Caso ambos sejam iguais, é um empate técnico e ninguém obtem vitória na rodada.\n");
+	printf("O formato das cartas quando mostradas é '(x) - [elemento, valor]', sendo x o número para escolhê-la.\n");
 	printf("Ganha aquele que completar 3 vitórias de um mesmo elemento ou 1 vitória de cada elemento.\n\n");
 
 	printf("Agora, vamos para a prática!\n\n");
 }
 
-void show_hand(Player *p1){
+void show_hand(Player *pl){
 
-	p1->hand->iterador = p1->hand->sentinel->prox;
+	int i = 1;
+	pl->hand->iterador = pl->hand->sentinel->next;
+	card_ carta_atual = pl->hand->iterador;
 
-	while(p1->hand->iterador != p1->hand->sentinel){
+	printf("cartas:\n");
 
+	while(pl->hand->iterador != pl->hand->sentinel){
 
+		printf("( %d ) - [", i);
+
+		if(carta_atual->type == 0){
+
+		}else if(carta_atual->type == 0)
+
+		pl->hand->iterador = pl->hand->iterador->next;
+		i++;
 	}
 
 }

@@ -50,7 +50,7 @@ typedef struct{
 typedef Player* player_;
 
 void embaralhar(Card vet[], int vetSize);
-void init_player(player_ pl, Card allcards);
+void init_player(player_ pl, Card allcards[]);
 int InsertCard(player_ pl);
 
 #endif 
