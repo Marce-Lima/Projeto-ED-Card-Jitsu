@@ -72,18 +72,70 @@ int main(){
 		choice_p2 = select_card(answer, &p2);
 
 
-		if(choice_p1->type == choice_p2->type){
-			//comparar valores
+		if(choice_p1->type == choice_p2->type){//empate de tipo
+
+			if(choice_p1->number == choice_p2 ->number){//empate duplo
+				printf("---Cartas iguais---");
+				printf("=----= Empate! =----=\n");
+
+			}else{
+			if(choice_p1 == 0){//empate fogo
+
+				printf("\n+++ ambos escolheram fogo +++\n");
+				printf("\n--- valor da carta de %s: %d < valor da carta de %s: %d ---\n", p1.name, choice_p1->number, p2.name, choice_p2->number);
+
+				if(choice_p1->number > choice_p2->number){
+					printf("=----= %s ganhou a rodada! =----=\n", p1.name);
+					p1.wfire++;
+
+				}else if(choice_p1->number < choice_p2->number){
+					printf("=----= %s ganhou a rodada! =----=\n", p2.name);
+					p2.wfire++;
+				}
+				
+			}else if(choice_p1 == 1){//empate agua
+
+				printf("\n+++ ambos escolheram agua +++\n");
+				printf("\n--- valor da carta de %s: %d > valor da carta de %s: %d ---\n", p1.name, choice_p1->number, p2.name, choice_p2->number);
+
+				if(choice_p1->number > choice_p2->number){
+					printf("=----= %s ganhou a rodada! =----=\n", p1.name);
+					p1.wwater++;
+
+				}else if(choice_p1->number < choice_p2->number){
+					printf("=----= %s ganhou a rodada! =----=\n", p2.name);
+					p2.wwater++;
+				}
+
+			}else{//ampate gelo
+
+				printf("\n+++ ambos escolheram gelo +++\n");
+				printf("\n--- valor da carta de %s: %d > valor da carta de %s: %d ---\n", p1.name, choice_p1->number, p2.name, choice_p2->number);
+
+				if(choice_p1->number > choice_p2->number){
+					printf("=----= %s ganhou a rodada! =----=\n", p1.name);
+					p1.wice++;
+				}else if(choice_p1->number < choice_p2->number){
+					printf("=----= %s ganhou a rodada! =----=\n", p2.name);
+					p2.wice++;
+				}
+			}
+			}
+
 		}else{
 			//comparar elementos
 			switch (choice_p1->type)
 			{
 				case 0://p1 - fogo
+
 					if(choice_p2->type == 1){//p2 - agua
+
 						printf("\n+++ %s escolheu fogo e %s escolheu agua +++\n", p1.name, p2.name);
 						printf("=----= %s ganhou a rodada! =----=\n", p2.name);
 						p2.wwater++;
+
 					}else{//p2 - gelo
+
 						printf("\n+++ %s escolheu fogo e %s escolheu gelo +++\n", p1.name, p2.name);
 						printf("=----= %s ganhou a rodada! =----=\n", p1.name);
 						p1.wfire++;
@@ -91,30 +143,36 @@ int main(){
 				break;
 
 				case 1://p1 - agua
-					if(choice_p2->type == 1){//p2 - gelo
+					if(choice_p2->type == 2){//p2 - gelo
 						printf("\n+++ %s escolheu agua e %s escolheu gelo +++\n", p1.name, p2.name);
 						printf("=----= %s ganhou a rodada! =----=\n", p2.name);
 						p2.wice++;
 					}else{//p2 - fogo
-						printf("\n+++ %s escolheu fogo e %s escolheu gelo +++\n", p1.name, p2.name);
+						printf("\n+++ %s escolheu agua e %s escolheu fogo +++\n", p1.name, p2.name);
 						printf("=----= %s ganhou a rodada! =----=\n", p1.name);
 						p1.wwater++;
 					}
 				break;
 
 				case 2://p1 - gelo
-				/* code */
+
+					if(choice_p2->type == 1){//p2 - agua
+
+						printf("\n+++ %s escolheu gelo e %s escolheu agua +++\n", p1.name, p2.name);
+						printf("=----= %s ganhou a rodada! =----=\n", p1.name);
+						p1.wice++;
+
+					}else{//p2 - fogo
+
+						printf("\n+++ %s escolheu gelo e %s escolheu fogo +++\n", p1.name, p2.name);
+						printf("=----= %s ganhou a rodada! =----=\n", p2.name);
+						p2.wfire++;
+					}
+
 				break;
 			}
 
 		}
-
-
-
-
-
-
-
 
 		//remover a carta da hand e adicionar outra
 		RemoveCard(&p1, choice_p1);
