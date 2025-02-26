@@ -2,13 +2,51 @@
 #include <string.h>
 #include <stdlib.h>
 #include "lista.h"
+#include "fila.h"
+#include "game.h"
+
+void read_rules();
 
 int main(){
 	// tipo 0 = fogo
 	// tipo 1 = agua
 	// tipo 2 = gelo
-	Card allcards[] = {(0, 1), (0, 2), (0, 3), (0, 4), (0, 5), (0, 6), (0, 7),
-					   (1, 1), (1, 2), (1, 3), (1, 4), (1, 5), (1, 6), (1, 7),
-					   (2, 1), (2, 2), (2, 3), (2, 4), (2, 5), (2, 6), (2, 7)};
-	// card_ all = &allcards;
+
+	Player p1, p2;
+	char resposta;
+
+	//randomizar as cartas nos dois packs e gerar as duas hands
+	init_fila(p1);
+	init_fila(p2);
+
+	init_hand(p1);
+	init_hand(p2);
+
+	//tela inicial
+	printf("\n CARD-JITSU \n\n");
+
+	printf("Ler as regras? (s/n)\n");
+	scanf("%c\n", &resposta);
+
+	if(){
+		read_rules();
+	}else{
+		printf("Ah, vejo que você já tem o conhecimento necessário...");
+		printf("\nEntão mostre do que é capaz!");
+	}
+
+	printf("Insira o nome do(a) player 1: ");
+	scanf("%[^\n]s", p1.name);
+
+	printf("\nInsira o nome do(a) player 2: ");
+	scanf("%[^\n]s", p2.name);
+
+	
+
+	return 0;
 }
+
+void read_rules(){
+	printf("Olá, pequeno gafanhoto!\n");
+	printf("Bem-vindo ao Card-Jitsu, um e-sporte tradicional dos tempo remotos de Club Penguin");
+};
