@@ -11,11 +11,19 @@ int main(){
 	Player p1, p2;
 	char answer;
 	int round = 0;
+	card_ choice_p1, choice_p2;
 
 	//criar player
 	init_player(&p1, allcards);
-	init_player(&, allcards);
+	init_player(&p2, allcards);
 
+	//add cartas a mão
+	for (int i = 0; i < MAX_CARDS; i++)
+	{
+		InsertCard(&p1);
+		InsertCard(&p2);
+	}
+	
 	//tela inicial
 	printf("\n CARD-JITSU \n\n");
 
@@ -51,13 +59,68 @@ int main(){
 		printf("== Vez de %s ==\n\n", p1.name);
 		printf("(Não permita que seu adversário veja suas cartas! Pressione 'Enter' para ver suas cartas.)\n");
 		show_hand(&p1);
+		//escolha
+		scanf("%d\n", &answer);
+		choice_p1 = select_card(answer, &p1);
 
 		//anunciar vez do p2
 		printf("== Vez de %s ==\n\n", p2.name);
 		printf("(Não permita que seu adversário veja suas cartas! Pressione 'Enter' para ver suas cartas.)\n");
 		show_hand(&p2);
+		//escolha
+		scanf("%d\n", &answer);
+		choice_p2 = select_card(answer, &p2);
 
 
+		if(choice_p1->type == choice_p2->type){
+			//comparar valores
+		}else{
+			//comparar elementos
+			switch (choice_p1->type)
+			{
+				case 0://p1 - fogo
+					if(choice_p2->type == 1){//p2 - agua
+						printf("\n+++ %s escolheu fogo e %s escolheu agua +++\n", p1.name, p2.name);
+						printf("=----= %s ganhou a rodada! =----=\n", p2.name);
+						p2.wwater++;
+					}else{//p2 - gelo
+						printf("\n+++ %s escolheu fogo e %s escolheu gelo +++\n", p1.name, p2.name);
+						printf("=----= %s ganhou a rodada! =----=\n", p1.name);
+						p1.wfire++;
+					}
+				break;
+
+				case 1://p1 - agua
+					if(choice_p2->type == 1){//p2 - gelo
+						printf("\n+++ %s escolheu agua e %s escolheu gelo +++\n", p1.name, p2.name);
+						printf("=----= %s ganhou a rodada! =----=\n", p2.name);
+						p2.wice++;
+					}else{//p2 - fogo
+						printf("\n+++ %s escolheu fogo e %s escolheu gelo +++\n", p1.name, p2.name);
+						printf("=----= %s ganhou a rodada! =----=\n", p1.name);
+						p1.wwater++;
+					}
+				break;
+
+				case 2://p1 - gelo
+				/* code */
+				break;
+			}
+
+		}
+
+
+
+
+
+
+
+
+		//remover a carta da hand e adicionar outra
+		RemoveCard(&p1, choice_p1);
+		RemoveCard(&p2, choice_p2);
+		InsertCard(&p1);
+		InsertCard(&p2);
 
 		//condicoes de vitoria
 		if(p1.wfire == 3 || p1.wice == 3 || p1.wwater == 3 || (p1.wfire > 0 && p1.wice > 0 && p1.wwater > 0)){
@@ -67,7 +130,7 @@ int main(){
 		}
 		if(p2.wfire == 3 || p2.wice == 3 || p2.wwater == 3 || (p2.wfire > 0 && p2.wice > 0 && p2.wwater > 0)){
 			printf("\nA batalha acabou, abaixem suas cartas!\n");
-			printf("A vitória pertence a %s!\n", p2.name);
+			printf("A vitória é de %s!\n", p2.name);
 			break;
 		}
 	
@@ -120,6 +183,15 @@ void show_hand(Player *pl){
 		i++;
 	}
 
-	printf("\n\n Escolha sua carta (1 - 5):");
+	printf("\n\n Escolha sua carta (1 - 5): ");
 
+}
+
+card_ select_card(int answer, player_ pl){
+
+	Card selected_card;
+
+
+
+	return ;
 }
