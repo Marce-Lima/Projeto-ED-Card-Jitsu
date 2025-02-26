@@ -92,7 +92,10 @@ void read_rules(){
 
 void show_hand(Player *p1){
 
-	while(p1->hand->iterador != p1->hand->){
+	p1->hand->iterador = p1->hand->sentinel->prox
+
+	while(p1->hand->iterador != p1->hand->sentinel){
+
 
 	}
 
