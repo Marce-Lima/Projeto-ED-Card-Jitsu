@@ -88,7 +88,7 @@ void read_rules(){
 	printf("\t1. Elementos diferentes - água vence fogo, fogo vence gelo e gelo vence água(como em pedra, papel e tesoura).\n");
 	printf("\t2. Maior valor - caso os elementos das cartas escolhidas sejam iguais, ganhará a carta de maior valor.\n");
 	printf("\t3. Caso ambos sejam iguais, é um empate técnico e ninguém obtem vitória na rodada.\n");
-	printf("O formato das cartas quando mostradas é '(x) - [elemento, valor]', sendo x o número para escolhê-la.\n");
+	printf("O formato das cartas quando mostradas é '(x) - [elemento | valor]', sendo x o número para escolhê-la.\n");
 	printf("Ganha aquele que completar 3 vitórias de um mesmo elemento ou 1 vitória de cada elemento.\n\n");
 
 	printf("Agora, vamos para a prática!\n\n");
@@ -104,14 +104,22 @@ void show_hand(Player *pl){
 
 	while(pl->hand->iterador != pl->hand->sentinel){
 
-		printf("( %d ) - [", i);
+		card_ carta_atual = pl->hand->iterador;
+		printf("( %d ) - [ ", i);
 
-		if(carta_atual->type == 0){
+		if(carta_atual->type == 0)
+			printf("fogo |");
+		else if(carta_atual->type == 1)
+			printf("água |");
+		else
+			printf("gelo |");
 
-		}else if(carta_atual->type == 0)
-
+		printf(" %d ]\t", carta_atual->number);
+		
 		pl->hand->iterador = pl->hand->iterador->next;
 		i++;
 	}
+
+	printf("\n\n Escolha sua carta (1 - 5):");
 
 }
