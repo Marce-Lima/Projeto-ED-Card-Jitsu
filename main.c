@@ -1,47 +1,74 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
-#include "lista.h"
-#include "fila.h"
 #include "game.h"
 
 void read_rules();
+void show_hand(Player *p1);
 
 int main(){
-	// tipo 0 = fogo
-	// tipo 1 = agua
-	// tipo 2 = gelo
 
 	Player p1, p2;
-	char resposta;
+	char answer;
+	int round = 0;
 
 	//randomizar as cartas nos dois packs e gerar as duas hands
 	init_fila(p1);
 	init_fila(p2);
-
 	init_hand(p1);
 	init_hand(p2);
 
 	//tela inicial
 	printf("\n CARD-JITSU \n\n");
 
+	//ler regras
 	printf("Ler as regras? (s/n)\n");
-	scanf("%c\n", &resposta);
-
-	if(){
+	scanf("%c\n", &answer);
+	if(answer == 's'){
 		read_rules();
 	}else{
 		printf("Ah, vejo que você já tem o conhecimento necessário...\n");
-		printf("Então mostre do que é capaz!");
+		printf("Então mostre do que é capaz!\n\n");
 	}
 
-	printf("Insira o nome do(a) player 1: ");
+	//nomes dos players
+	printf("Insira um nome para player 1: ");
 	scanf("%[^\n]s", p1.name);
 
-	printf("\nInsira o nome do(a) player 2: ");
+	printf("\nInsira um nome para player 2: ");
 	scanf("%[^\n]s", p2.name);
 
+	//jogo em si
+	while(1)
+	{
+		//anunciar round
+		round++;
+		printf("---->>>< ROUND %d ><<<----\n", round);
+
+		// tipo 0 = fogo
+		// tipo 1 = agua
+		// tipo 2 = gelo
+
+		//anunciar vez do p1
+		printf("== Vez de %s ==\n\n", p1.name);
+		printf("(Não permita que seu adversário veja suas cartas! Pressione 'Enter' para ver suas cartas.)\n");
+		show_hand(&p1);
+
+
+
+		//condicoes de vitoria
+		if(p1.wfire == 3 || p1.wice == 3 || p1.wwater == 3 || (p1.wfire > 0 && p1.wice > 0 && p1.wwater > 0)){
+			printf("\nA batalha acabou, abaixem suas cartas!\n");
+			printf("A vitória pertence a %s!\n", p1.name);
+			break;
+		}
+		if(p2.wfire == 3 || p2.wice == 3 || p2.wwater == 3 || (p2.wfire > 0 && p2.wice > 0 && p2.wwater > 0)){
+			printf("\nA batalha acabou, abaixem suas cartas!\n");
+			printf("A vitória pertence a %s!\n", p2.name);
+			break;
+		}
 	
+	}
 
 	return 0;
 }
@@ -61,4 +88,12 @@ void read_rules(){
 	printf("Ganha aquele que completar 3 vitórias de um mesmo elemento ou 1 vitória de cada elemento.\n\n");
 
 	printf("Agora, vamos para a prática!\n\n");
-};
+}
+
+void show_hand(Player *p1){
+
+	while(p1->hand->iterador != p1->hand->){
+
+	}
+
+}
