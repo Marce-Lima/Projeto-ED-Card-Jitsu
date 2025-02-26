@@ -5,8 +5,10 @@
 
 void init_player(player_ pl, Card allcards[]){
     
-	//pl->hand->end = NULL;
-	//pl->hand->start = (Node*)malloc(sizeof(Node)); // cria baralho do jogador
+
+	pl->hand->sentinel = (Node*)malloc(sizeof(Node)); // cria baralho do jogador e a sentinela
+    pl->hand->sentinel->next = NULL;
+    pl->hand->sentinel->prev = NULL;
 	
 	init_Pack(pl->pack);
 	

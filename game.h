@@ -20,16 +20,18 @@ Card allcards[] = {{0, 1}, {0, 2}, {0, 3}, {0, 4}, {0, 5}, {0, 6}, {0, 7},
                     {1, 1}, {1, 2}, {1, 3}, {1, 4}, {1, 5}, {1, 6}, {1, 7},
                     {2, 1}, {2, 2}, {2, 3}, {2, 4}, {2, 5}, {2, 6}, {2, 7}}; // define todas as cartas disponiveis
 
+//lista (hand)
 typedef struct{
 	Card item;
 	card_ next, prev;
 } Node;
 
 typedef struct{
-	Node* start, end;
+	Node* sentinel;
 	Node* iterador;
 } Hand;
 
+//fila estatica (pack)
 typedef struct{
     Card card[21];
     int end, start;
@@ -37,6 +39,7 @@ typedef struct{
 
 typedef Pack* pack_;
 
+//player
 typedef struct{
     int wfire, wice, wwater; // tem q ter um tipo de vitoria diferente pra cada elemento
     char name[MAX_NAME];

@@ -12,12 +12,6 @@ int main(){
 	char answer;
 	int round = 0;
 
-	//randomizar as cartas nos dois packs e gerar as duas hands
-	init_fila(p1);
-	init_fila(p2);
-	init_hand(p1);
-	init_hand(p2);
-
 	//tela inicial
 	printf("\n CARD-JITSU \n\n");
 
@@ -53,6 +47,11 @@ int main(){
 		printf("== Vez de %s ==\n\n", p1.name);
 		printf("(Não permita que seu adversário veja suas cartas! Pressione 'Enter' para ver suas cartas.)\n");
 		show_hand(&p1);
+
+		//anunciar vez do p2
+		printf("== Vez de %s ==\n\n", p2.name);
+		printf("(Não permita que seu adversário veja suas cartas! Pressione 'Enter' para ver suas cartas.)\n");
+		show_hand(&p2);
 
 
 
@@ -92,7 +91,7 @@ void read_rules(){
 
 void show_hand(Player *p1){
 
-	p1->hand->iterador = p1->hand->sentinel->prox
+	p1->hand->iterador = p1->hand->sentinel->prox;
 
 	while(p1->hand->iterador != p1->hand->sentinel){
 
