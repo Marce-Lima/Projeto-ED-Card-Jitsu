@@ -21,15 +21,6 @@ Card allcards[] = {{0, 1}, {0, 2}, {0, 3}, {0, 4}, {0, 5}, {0, 6}, {0, 7},
                     {2, 1}, {2, 2}, {2, 3}, {2, 4}, {2, 5}, {2, 6}, {2, 7}}; // define todas as cartas disponiveis
 
 typedef struct{
-    int wfire, wice, wwater; // tem q ter um tipo de vitoria diferente pra cada elemento
-    char name[MAX_NAME];
-    Pack pack[MAX_PACK];
-    Hand* hand;
-} Player;
-  
-typedef Player* player_;
-
-typedef struct{
 	Card item;
 	card_ next, prev;
 } Node;
@@ -40,8 +31,20 @@ typedef struct{
 } Hand;
 
 typedef struct{
-    Card [21];
+    Card card[21];
+    int end, start;
 }Pack;
+
+typedef Pack* pack_;
+
+typedef struct{
+    int wfire, wice, wwater; // tem q ter um tipo de vitoria diferente pra cada elemento
+    char name[MAX_NAME];
+    Pack pack[MAX_PACK];
+    Hand* hand;
+} Player;
+
+typedef Player* player_;
 
 void embaralhar(Card vet[], int vetSize);
 void init_player(player_ pl, Card allcards);
