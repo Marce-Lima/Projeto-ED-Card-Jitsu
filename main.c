@@ -47,6 +47,6 @@ int main(){
 }
 
 void read_rules(){
-	printf("Olá, pequeno gafanhoto!\n");
-	printf("Bem-vindo ao Card-Jitsu, um e-sporte tradicional dos tempo remotos de Club Penguin");
+	printf("Olá, pequeno gafanhoto!\n
+		Bem-vindo ao Card-Jitsu, um e-sporte tradicional dos tempo remotos de Club Penguin.\n");
 };
