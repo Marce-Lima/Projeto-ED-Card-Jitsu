@@ -9,6 +9,7 @@ void init_player(player_ pl, Card allcards[]){
 	pl->hand->sentinel = (Node*)malloc(sizeof(Node)); // cria baralho do jogador e a sentinela
     pl->hand->sentinel->next = NULL;
     pl->hand->sentinel->prev = NULL;
+    pl->hand->num_cards = 0;
 
     //inicializar vitorias
     pl->wfire = 0;
@@ -28,6 +29,6 @@ void init_player(player_ pl, Card allcards[]){
 	
     //coloca as cartas do pack na hand
 	for(int i=0; i < MAX_CARDS; i++){
-		//InsertCard(pl);
+		InsertCard(pl->hand, pl->pack);
 	}
 }

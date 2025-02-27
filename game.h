@@ -25,6 +25,7 @@ typedef struct no{
 typedef struct{
 	Node* sentinel;
 	Node* iterador;
+    int num_cards;
 } Hand;
 
 //fila estatica (pack)
@@ -47,7 +48,7 @@ typedef Player* player_;
 
 
 void init_player(player_ pl, Card cards[]);
-int InsertCard(player_ pl);
+int InsertCard(Hand* hand, pack_ pack);
 
 // funcoes pack
 int full_Pack(pack_ pack);

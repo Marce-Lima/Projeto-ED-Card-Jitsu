@@ -9,8 +9,9 @@ card_ select_card(/*int answer,*/ player_ pl);
 
 int main(){
 
-	Player p1, p2;
-	Hand* hand_temp;
+	Player player1, player2;
+	player_ p1 = &player1;
+	player_ p2 = &player2;
 	char answer;
 	int answer_num = 0, round = 0;
 	card_ choice_p1, choice_p2;
@@ -25,8 +26,8 @@ int main(){
 	//add cartas a mão
 	for (int i = 0; i < MAX_CARDS; i++)
 	{
-		InsertCard(&p1);
-		InsertCard(&p2);
+		InsertCard(p1->hand, p1->pack);
+		InsertCard(p2->hand, p2->pack);
 	}
 	
 	//tela inicial
@@ -34,7 +35,7 @@ int main(){
 
 	//ler regras
 	printf("Ler as regras? (s/n)\n");
-	scanf("%c\n", &answer);
+	scanf("%c", &answer);
 	if(answer == 's'){
 		read_rules();
 	}else{
@@ -63,11 +64,10 @@ int main(){
 		//anunciar vez do p1
 		printf("== Vez de %s ==\n\n", p1.name);
 		printf("(Não permita que seu adversário veja suas cartas! Pressione 'Enter' para ver suas cartas.)\n");
-		hand_temp = p1.hand;
 		show_hand(hand_temp);
 		//escolha
 		scanf("%d\n", &answer_num);
-		choice_p1 = select_card(/*answer,*/ &p1);
+		choice_p1 = select_card(/*answer_num,*/ &p1);
 
 		//anunciar vez do p2
 		printf("== Vez de %s ==\n\n", p2.name);
@@ -76,7 +76,7 @@ int main(){
 		show_hand(hand_temp);
 		//escolha
 		scanf("%d\n", &answer_num);
-		choice_p2 = select_card(/*answer,*/ &p2);
+		choice_p2 = select_card(/*answer_num,*/ &p2);
 
 
 		if(choice_p1->type == choice_p2->type){//empate de tipo
@@ -207,10 +207,9 @@ int main(){
 void read_rules(){
 
 	printf("---REGRAS---\n\nOlá, pequeno gafanhoto!\n Bem-vindo ao Card-Jitsu, um e-sporte tradicional dos tempo remotos de Club Penguin.\n");
-	printf("O jogo consiste em rodadas de batalhas de cartas. Cada jogador terá uma mão com cinco cartas e seu pack de cartas para repor a mão ao longo da partida.\n");
+	printf("O jogo consiste em rodadas de batalhas de cartas. Cada jogador terá uma mão com cinco cartas\ne seu pack de cartas para repor a mão ao longo da partida.\n");
 	printf("Cada carta possui um elemento (água, fogo, gelo) e um valor (de 1 até 7).\nEm cada rodada os jogadores devem escolher uma cartasem que seu adversário saiba qual foi.\n\n");
-	printf("As cartas escolhidas entrarão em disputa ganhando pela regra de prioridade:\n");
-	printf("\t1. Elementos diferentes - água vence fogo, fogo vence gelo e gelo vence água(como em pedra, papel e tesoura).\n");
+	printf("As cartas escolhidas entrarão em disputa ganhando pela regra de prioridade:\n\t1. Elementos diferentes - água vence fogo, fogo vence gelo e gelo vence água(como em pedra, papel e tesoura).\n");
 	printf("\t2. Maior valor - caso os elementos das cartas escolhidas sejam iguais, ganhará a carta de maior valor.\n");
 	printf("\t3. Caso ambos sejam iguais, é um empate técnico e ninguém obtem vitória na rodada.\nO formato das cartas quando mostradas é '(x) - [elemento | valor]', sendo x o número para escolhê-la.\n");
 	printf("Ganha aquele que completar 3 vitórias de um mesmo elemento ou 1 vitória de cada elemento.\n\nAgora, vamos para a prática!\n\n");
