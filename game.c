@@ -28,6 +28,6 @@ void init_player(player_ pl, Card allcards[]){
 	
     //coloca as cartas do pack na hand
 	for(int i=0; i < MAX_CARDS; i++){
-		InsertCard(pl);
+		//InsertCard(pl);
 	}
 }

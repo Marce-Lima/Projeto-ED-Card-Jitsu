@@ -8,7 +8,7 @@
 typedef struct{
     int type;
     int number;
-  } Card;
+ } Card;
    
 typedef Card* card_;
 
@@ -45,8 +45,16 @@ typedef struct{
 
 typedef Player* player_;
 
-void embaralhar(Card vet[], int vetSize);
-void init_player(player_ pl, Card allcards[]);
+
+void init_player(player_ pl, Card cards[]);
 int InsertCard(player_ pl);
+
+// funcoes pack
+int full_Pack(pack_ pack);
+int empty_Pack(pack_ pack);
+void init_Pack(pack_ pack);
+void en_Pack(pack_ pack, Card card);
+Card re_Pack(pack_ pack);
+void embaralhar(pack_ pack, int vetSize);
 
 #endif 
