@@ -22,11 +22,15 @@ typedef struct no{
 	struct no *next, *prev;
 } Node;
 
+typedef Node* node_;
+
 typedef struct{
 	Node* sentinel;
 	Node* iterador;
     int num_cards;
 } Hand;
+
+typedef Hand* hand_;
 
 //fila estatica (pack)
 typedef struct{
@@ -38,17 +42,24 @@ typedef Pack* pack_;
 
 //player
 typedef struct{
-    int wfire, wice, wwater; // tem q ter um tipo de vitoria diferente pra cada elemento
-    char name[MAX_NAME];
+    int wins[3]; // tem q ter um tipo de vitoria diferente pra cada elemento
+    //char name[MAX_NAME];
+    int id;
     Pack pack[MAX_PACK];
     Hand* hand;
+    Card choice;
 } Player;
 
 typedef Player* player_;
 
-
+// funcoes de game
 void init_player(player_ pl, Card cards[]);
-int InsertCard(Hand* hand, pack_ pack);
+int InsertCard(hand_ hand, pack_ pack);
+void show_hand(hand_ hand);
+Card select_card(int answer, hand_ hand, pack_ pack);
+int win(player_ pl);
+void results(player_ p);
+void check(player_ p1, player_ p2);
 
 // funcoes pack
 int full_Pack(pack_ pack);
@@ -57,5 +68,8 @@ void init_Pack(pack_ pack);
 void en_Pack(pack_ pack, Card card);
 Card re_Pack(pack_ pack);
 void embaralhar(pack_ pack, int vetSize);
+
+// funcoes main
+void turn(player_ p);
 
 #endif 
