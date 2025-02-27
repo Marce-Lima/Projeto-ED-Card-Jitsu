@@ -5,13 +5,17 @@
 
 void read_rules();
 void show_hand(Player *pl);
+card_ select_card(int answer, player_ pl);
 
 int main(){
 
 	Player p1, p2;
 	char answer;
-	int round = 0;
+	int answer_num = 0, round = 0;
 	card_ choice_p1, choice_p2;
+	Card allcards[] = {{0, 1}, {0, 2}, {0, 3}, {0, 4}, {0, 5}, {0, 6}, {0, 7},
+                    {1, 1}, {1, 2}, {1, 3}, {1, 4}, {1, 5}, {1, 6}, {1, 7},
+                    {2, 1}, {2, 2}, {2, 3}, {2, 4}, {2, 5}, {2, 6}, {2, 7}}; // define todas as cartas disponiveis
 
 	//criar player
 	init_player(&p1, allcards);
@@ -45,8 +49,8 @@ int main(){
 	scanf("%[^\n]s", p2.name);
 
 	//jogo em si
-	while(1)
-	{
+	while(1){
+
 		//anunciar round
 		round++;
 		printf("---->>>< ROUND %d ><<<----\n", round);
@@ -60,7 +64,7 @@ int main(){
 		printf("(Não permita que seu adversário veja suas cartas! Pressione 'Enter' para ver suas cartas.)\n");
 		show_hand(&p1);
 		//escolha
-		scanf("%d\n", &answer);
+		scanf("%d\n", &answer_num);
 		choice_p1 = select_card(answer, &p1);
 
 		//anunciar vez do p2
@@ -68,7 +72,7 @@ int main(){
 		printf("(Não permita que seu adversário veja suas cartas! Pressione 'Enter' para ver suas cartas.)\n");
 		show_hand(&p2);
 		//escolha
-		scanf("%d\n", &answer);
+		scanf("%d\n", &answer_num);
 		choice_p2 = select_card(answer, &p2);
 
 
@@ -79,7 +83,7 @@ int main(){
 				printf("=----= Empate! =----=\n");
 
 			}else{
-			if(choice_p1 == 0){//empate fogo
+			if(choice_p1->type == 0){//empate fogo
 
 				printf("\n+++ ambos escolheram fogo +++\n");
 				printf("\n--- valor da carta de %s: %d < valor da carta de %s: %d ---\n", p1.name, choice_p1->number, p2.name, choice_p2->number);
@@ -93,7 +97,7 @@ int main(){
 					p2.wfire++;
 				}
 				
-			}else if(choice_p1 == 1){//empate agua
+			}else if(choice_p1->type == 1){//empate agua
 
 				printf("\n+++ ambos escolheram agua +++\n");
 				printf("\n--- valor da carta de %s: %d > valor da carta de %s: %d ---\n", p1.name, choice_p1->number, p2.name, choice_p2->number);
@@ -198,21 +202,15 @@ int main(){
 }
 
 void read_rules(){
-	printf("---REGRAS---\n\n");
 
-	printf("Olá, pequeno gafanhoto!\n Bem-vindo ao Card-Jitsu, um e-sporte tradicional dos tempo remotos de Club Penguin.\n");
+	printf("---REGRAS---\n\nOlá, pequeno gafanhoto!\n Bem-vindo ao Card-Jitsu, um e-sporte tradicional dos tempo remotos de Club Penguin.\n");
 	printf("O jogo consiste em rodadas de batalhas de cartas. Cada jogador terá uma mão com cinco cartas e seu pack de cartas para repor a mão ao longo da partida.\n");
-	printf("Cada carta possui um elemento (água, fogo, gelo) e um valor (de 1 até 7).\n");
-	printf("Em cada rodada os jogadores devem escolher uma cartasem que seu adversário saiba qual foi.\n\n");
-
+	printf("Cada carta possui um elemento (água, fogo, gelo) e um valor (de 1 até 7).\nEm cada rodada os jogadores devem escolher uma cartasem que seu adversário saiba qual foi.\n\n");
 	printf("As cartas escolhidas entrarão em disputa ganhando pela regra de prioridade:\n");
 	printf("\t1. Elementos diferentes - água vence fogo, fogo vence gelo e gelo vence água(como em pedra, papel e tesoura).\n");
 	printf("\t2. Maior valor - caso os elementos das cartas escolhidas sejam iguais, ganhará a carta de maior valor.\n");
-	printf("\t3. Caso ambos sejam iguais, é um empate técnico e ninguém obtem vitória na rodada.\n");
-	printf("O formato das cartas quando mostradas é '(x) - [elemento | valor]', sendo x o número para escolhê-la.\n");
-	printf("Ganha aquele que completar 3 vitórias de um mesmo elemento ou 1 vitória de cada elemento.\n\n");
-
-	printf("Agora, vamos para a prática!\n\n");
+	printf("\t3. Caso ambos sejam iguais, é um empate técnico e ninguém obtem vitória na rodada.\nO formato das cartas quando mostradas é '(x) - [elemento | valor]', sendo x o número para escolhê-la.\n");
+	printf("Ganha aquele que completar 3 vitórias de um mesmo elemento ou 1 vitória de cada elemento.\n\nAgora, vamos para a prática!\n\n");
 }
 
 void show_hand(Player *pl){
@@ -236,8 +234,10 @@ void show_hand(Player *pl){
 			printf("gelo |");
 
 		printf(" %d ]\t", carta_atual->number);
-		
-		pl->hand->iterador = pl->hand->iterador->next;
+
+		Node* temp = pl->hand->iterador;
+
+		pl->hand->iterador = temp->next;
 		i++;
 	}
 
@@ -245,11 +245,9 @@ void show_hand(Player *pl){
 
 }
 
-card_ select_card(int answer, player_ pl){
+card_ select_card(/*int answer*/, player_ pl){
 
-	Card selected_card;
+	card_ selected_card = pl->hand->sentinel->next;
 
-
-
-	return ;
+	return selected_card;
 }
