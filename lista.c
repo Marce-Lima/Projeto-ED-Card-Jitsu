@@ -14,7 +14,7 @@ int InsertCard(Hand* hand, pack_ pack){
 		novo_no->next = hand->sentinel;
 		novo_no->prev = hand->sentinel;
 	}else if(hand->num_cards == 5){
-		printf();
+		printf("Não foi possível inserir a carta (mão cheia)");
 	}else{
 		Node* temp = hand->sentinel->prev;
 		novo_no->prev = temp;
@@ -22,7 +22,6 @@ int InsertCard(Hand* hand, pack_ pack){
 		hand->sentinel->prev = novo_no;
 		temp->next = novo_no;
 	}
-	
 }
 
 int RemoveCard(player_ pl, card_ rem_card){
