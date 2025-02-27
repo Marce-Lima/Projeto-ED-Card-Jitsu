@@ -4,12 +4,13 @@
 #include "game.h"
 
 void read_rules();
-void show_hand(Player *pl);
-card_ select_card(int answer, player_ pl);
+void show_hand(Hand *hand);
+card_ select_card(/*int answer,*/ player_ pl);
 
 int main(){
 
 	Player p1, p2;
+	Hand* hand_temp;
 	char answer;
 	int answer_num = 0, round = 0;
 	card_ choice_p1, choice_p2;
@@ -62,18 +63,20 @@ int main(){
 		//anunciar vez do p1
 		printf("== Vez de %s ==\n\n", p1.name);
 		printf("(Não permita que seu adversário veja suas cartas! Pressione 'Enter' para ver suas cartas.)\n");
-		show_hand(&p1);
+		hand_temp = p1.hand;
+		show_hand(hand_temp);
 		//escolha
 		scanf("%d\n", &answer_num);
-		choice_p1 = select_card(answer, &p1);
+		choice_p1 = select_card(/*answer,*/ &p1);
 
 		//anunciar vez do p2
 		printf("== Vez de %s ==\n\n", p2.name);
 		printf("(Não permita que seu adversário veja suas cartas! Pressione 'Enter' para ver suas cartas.)\n");
-		show_hand(&p2);
+		hand_temp = p2.hand;
+		show_hand(hand_temp);
 		//escolha
 		scanf("%d\n", &answer_num);
-		choice_p2 = select_card(answer, &p2);
+		choice_p2 = select_card(/*answer,*/ &p2);
 
 
 		if(choice_p1->type == choice_p2->type){//empate de tipo
@@ -179,8 +182,8 @@ int main(){
 		}
 
 		//remover a carta da hand e adicionar outra
-		RemoveCard(&p1, choice_p1);
-		RemoveCard(&p2, choice_p2);
+		//RemoveCard(&p1, choice_p1);
+		//RemoveCard(&p2, choice_p2);
 		InsertCard(&p1);
 		InsertCard(&p2);
 
@@ -213,31 +216,30 @@ void read_rules(){
 	printf("Ganha aquele que completar 3 vitórias de um mesmo elemento ou 1 vitória de cada elemento.\n\nAgora, vamos para a prática!\n\n");
 }
 
-void show_hand(Player *pl){
+void show_hand(Hand *hand){
 
 	int i = 1;
-	pl->hand->iterador = pl->hand->sentinel->next;
-	card_ carta_atual = pl->hand->iterador;
+	hand->iterador = hand->sentinel->next;
 
 	printf("cartas:\n");
 
-	while(pl->hand->iterador != pl->hand->sentinel){
+	while(hand->iterador != hand->sentinel){
 
-		card_ carta_atual = pl->hand->iterador;
+		Card carta_atual = hand->iterador->item;
+
 		printf("( %d ) - [ ", i);
 
-		if(carta_atual->type == 0)
+		if(carta_atual.number == 0)
 			printf("fogo |");
-		else if(carta_atual->type == 1)
+		else if(carta_atual.number == 1)
 			printf("água |");
 		else
 			printf("gelo |");
 
-		printf(" %d ]\t", carta_atual->number);
+		printf(" %d ]\t", carta_atual.number);
 
-		Node* temp = pl->hand->iterador;
-
-		pl->hand->iterador = temp->next;
+		Node* no_temp = hand->iterador;
+		hand->iterador = no_temp->next;
 		i++;
 	}
 
@@ -245,9 +247,9 @@ void show_hand(Player *pl){
 
 }
 
-card_ select_card(/*int answer*/, player_ pl){
+card_ select_card(/*int answer*/ player_ pl){
 
-	card_ selected_card = pl->hand->sentinel->next;
+	Node* selected_card = pl->hand->sentinel->next;
 
-	return selected_card;
+	return &selected_card->item;
 }

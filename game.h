@@ -17,9 +17,9 @@ typedef Card* card_;
 // tipo 2 = gelo
 
 //lista (hand)
-typedef struct{
+typedef struct no{
 	Card item;
-	card_ next, prev;
+	struct no *next, *prev;
 } Node;
 
 typedef struct{
