@@ -25,7 +25,7 @@ void init_player(player_ pl, int id){
     //coloca as cartas do pack na hand
 	for(int i=0; i < MAX_CARDS; i++){
         Card temp = re_Pack(&pl->pack);
-		insert_Hand(pl->hand, temp);
+		if(!insert_Hand(pl->hand, temp)) print_hand_message();
 	}
     
 }
@@ -72,8 +72,7 @@ Card select_card(int answer, hand_ hand, pack_ pack){
     Card aux = hand->iterador->item;
 
     hand->iterador->item = re_Pack(pack);
-    en_Pack(pack, aux);
-    //
+    if(!en_Pack(pack, aux)) print_pack_empty();
 
 	return aux;
 }

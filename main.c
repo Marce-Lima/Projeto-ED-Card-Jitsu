@@ -129,3 +129,11 @@ void read_rules(){
 	printf("\t3. Caso ambos sejam iguais, é um empate técnico e ninguém obtem vitória na rodada.\nO formato das cartas quando mostradas é '(x) - [elemento | valor]', sendo x o número para escolhê-la.\n");
 	printf("Ganha aquele que completar 3 vitórias de um mesmo elemento ou 1 vitória de cada elemento.\n\nAgora, vamos para a prática!\n\n");
 }
+
+void print_hand_message(){
+    printf("Não foi possível inserir na mão (hand cheia)!\n");
+}
+
+void print_pack_empty(){
+    printf("Não foi possível inserir no pack\n");
+}

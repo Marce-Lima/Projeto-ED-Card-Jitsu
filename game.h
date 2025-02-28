@@ -64,12 +64,12 @@ void check(player_ p1, player_ p2);
 int full_Pack(pack_ pack);
 int empty_Pack(pack_ pack);
 void init_Pack(pack_ pack, Card allcards[]);
-void en_Pack(pack_ pack, Card card);
+int en_Pack(pack_ pack, Card card);
 Card re_Pack(pack_ pack);
 void embaralhar(pack_ pack, int vetSize);
 
 //funcoes lista
-void insert_Hand(hand_ h, Card valor);
+int insert_Hand(hand_ h, Card valor);
 void init_Hand(hand_ h);
 void remove_Hand(hand_ h, int n);
 void destruct_Hand(hand_ h);
@@ -79,5 +79,7 @@ int empty_Hand(hand_ h);
 // funcoes main
 void turn(player_ p);
 void show_wins(player_ p1, player_ p2);
+void print_hand_message();
+void print_pack_empty();
 
 #endif 

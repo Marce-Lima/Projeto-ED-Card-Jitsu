@@ -2,11 +2,10 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-void insert_Hand(hand_ h, Card valor){
+int insert_Hand(hand_ h, Card valor){
 
 	if(h->num_cards == 5){
-	    printf("Não foi possível inserir a carta (mão cheia)");
-		return;
+		return 0;
     }
 
     node_ new_node = (node_)malloc(sizeof(Node));
@@ -22,6 +21,7 @@ void insert_Hand(hand_ h, Card valor){
 	h->sentinel->prev = new_node;
 
 	h->num_cards++;
+	return 1;
 }
 
 void init_Hand(hand_ h){

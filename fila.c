@@ -26,11 +26,10 @@ void init_Pack(pack_ pack, Card allcards[]){
     
 }
 
-void en_Pack(pack_ pack, Card card){
+int en_Pack(pack_ pack, Card card){
     
     if(full_Pack(pack)){
-        printf("Não foi possível incrementar o pack\n");
-        return;
+        return 0;
     }
     
     if(empty_Pack(pack)){
@@ -43,6 +42,8 @@ void en_Pack(pack_ pack, Card card){
     pack->card[pack->end] = card;
 
     pack->quantidade++;
+    
+    return 1;
 }
 
 Card re_Pack(pack_ pack){
@@ -50,7 +51,6 @@ Card re_Pack(pack_ pack){
     Card aux = {0,0};
     
     if(empty_Pack(pack)){
-        printf("Não foi possível retirar do o pack\n");
         return aux;
     }
     
