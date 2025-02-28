@@ -1,5 +1,5 @@
 Olá!
-Este código foi feito como projeto prático para a disciplina de Estrutura de Dados, na UFSCar-So, para o Prof. Mário.
+Este código foi feito como projeto prático para a disciplina de Estrutura de Dados, na UFSCar-So, para o Professor Mário.
 As estruturas implementadas neste código foram:
   1 - uma fila estática.
   2 - uma lista dinâmica duplamente encadeada circular com sentinela e iterador.
