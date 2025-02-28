@@ -53,13 +53,14 @@ typedef struct{
 typedef Player* player_;
 
 // funcoes de game
-void init_player(player_ pl, Card cards[]);
+void init_player(player_ pl, Card cards[], int id);
 int InsertCard(hand_ hand, pack_ pack);
 void show_hand(hand_ hand);
 Card select_card(int answer, hand_ hand, pack_ pack);
 int win(player_ pl);
 void results(player_ p);
 void check(player_ p1, player_ p2);
+void init_Hand(hand_ h);
 
 // funcoes pack
 int full_Pack(pack_ pack);

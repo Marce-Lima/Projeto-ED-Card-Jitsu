@@ -3,21 +3,28 @@
 #include <stdlib.h>
 #include "game.h"
 
-void init_player(player_ pl, Card allcards[]){
+void init_player(player_ pl, Card allcards[], int id){
     
     //criar sentinela
 	pl->hand->sentinel = (Node*)malloc(sizeof(Node)); // cria baralho do jogador e a sentinela
     pl->hand->sentinel->next = NULL;
     pl->hand->sentinel->prev = NULL;
     pl->hand->num_cards = 0;
+    
+    pl->choice.type = -1;
+    pl->choice.number = -1;
 
     //inicializar vitorias
     pl->wins[0] = 0;
     pl->wins[1] = 0;
     pl->wins[2] = 0;
+    
+    pl->id = id;
 	
     //inicializar ponteiros da fila
 	init_Pack(pl->pack);
+	
+	
 	
     //coloca as cartas pelo fim da fila
 	for(int i=0; i < MAX_PACK; i++){
@@ -26,6 +33,8 @@ void init_player(player_ pl, Card allcards[]){
 	
     //rand as cartas da fila
 	embaralhar(pl->pack, MAX_PACK);
+	
+	init_Hand(pl->hand);
 	
     //coloca as cartas do pack na hand
 	for(int i=0; i < MAX_CARDS; i++){

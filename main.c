@@ -12,9 +12,6 @@ int main(){
 	player_ p1 = &player1;
 	player_ p2 = &player2;
 	
-	p1->id = 1;
-	p1->id = 2;
-	
 	char answer;
 	int round_ = 0;
 
@@ -23,15 +20,8 @@ int main(){
                     {2, 1}, {2, 2}, {2, 3}, {2, 4}, {2, 5}, {2, 6}, {2, 7}}; // define todas as cartas disponiveis
 
 	//criar player
-	init_player(p1, allcards);
-	init_player(p2, allcards);
-
-	//add cartas a mão
-	for (int i = 0; i < MAX_CARDS; i++)
-	{
-		InsertCard(p1->hand, p1->pack);
-		InsertCard(p2->hand, p2->pack);
-	}
+	//init_player(p1, allcards, 1);
+	init_player(p1, allcards, 2);
 	
 	//tela inicial
 	printf("\n CARD-JITSU \n\n");
@@ -86,6 +76,9 @@ void turn(player_ p){
 		//escolha
 	scanf("%d", &answer_num);
 	p->choice = select_card(answer_num, p->hand, p->pack);
+	printf("Sua escolha foi %d - %d\n", p->choice.type, p->choice.number);
+	
+	//system("clear");
     
     return;
 }
