@@ -11,8 +11,8 @@ typedef struct card_{
 typedef struct no_{
 
     card valor;
-    struct no_ next;
-    struct no_ prev;
+    struct no_* next;
+    struct no_* prev;
 
 }no;
 
@@ -25,7 +25,10 @@ typedef struct hand_{
 }hand;
 
 void inicializar_hand(hand* h);
-void (hand* h);
-
+void Insert(hand* h, card card);
+void Remove(hand* h);
+int vazia(hand* H);
+int cheia(hand* H);
+void Destruct(hand* h);
 
 #endif
