@@ -1,15 +1,22 @@
 #ifndef LISTA_H
 #define LISTA_H
 
-typedef struct no_
-{
-    int valor;
+typedef struct card_{
+    
+    int type;
+    int number;
+
+}card;
+
+typedef struct no_{
+
+    card valor;
     struct no_ next;
     struct no_ prev;
+
 }no;
 
-
-typedef struct hand_ {
+typedef struct hand_{
 
     no* sentinela;
     no* iterador;
@@ -17,6 +24,8 @@ typedef struct hand_ {
 
 }hand;
 
-void inicializar_hand();
+void inicializar_hand(hand* h);
+void (hand* h);
+
 
 #endif
