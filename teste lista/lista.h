@@ -26,9 +26,9 @@ typedef struct hand_{
 
 void inicializar_hand(hand* h);
 void Insert(hand* h, card card);
-void Remove(hand* h);
-int vazia(hand* H);
-int cheia(hand* H);
+void Remove(hand* h, int n);
+int vazia(hand* h);
+int cheia(hand* h);
 void Destruct(hand* h);
 
 #endif
