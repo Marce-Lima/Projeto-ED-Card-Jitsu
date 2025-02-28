@@ -45,15 +45,15 @@ typedef struct{
     int wins[3]; // tem q ter um tipo de vitoria diferente pra cada elemento
     //char name[MAX_NAME];
     int id;
-    Pack pack[MAX_PACK];
-    Hand* hand;
+    Pack pack;
+    hand_ hand;
     Card choice;
 } Player;
 
 typedef Player* player_;
 
 // funcoes de game
-void init_player(player_ pl, Card cards[], int id);
+void init_player(player_ pl, int id);
 int InsertCard(hand_ hand, pack_ pack);
 void show_hand(hand_ hand);
 Card select_card(int answer, hand_ hand, pack_ pack);
@@ -65,7 +65,7 @@ void init_Hand(hand_ h);
 // funcoes pack
 int full_Pack(pack_ pack);
 int empty_Pack(pack_ pack);
-void init_Pack(pack_ pack);
+void init_Pack(pack_ pack, Card allcards[]);
 void en_Pack(pack_ pack, Card card);
 Card re_Pack(pack_ pack);
 void embaralhar(pack_ pack, int vetSize);

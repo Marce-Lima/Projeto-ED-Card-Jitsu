@@ -14,9 +14,16 @@ void embaralhar(pack_ pack, int vetSize){
 	}
 } 
 
-void init_Pack(pack_ pack){
-    pack->end = -1;
-    pack->start = -1;
+void init_Pack(pack_ pack, Card allcards[]){
+    
+    //coloca as cartas pelo fim da fila
+	for(int i=0; i < MAX_PACK; i++){
+		en_Pack(pack, allcards[i]);
+	}
+	
+	pack->end = -1;
+	pack->start = -1;
+    
 }
 
 void en_Pack(pack_ pack, Card card){

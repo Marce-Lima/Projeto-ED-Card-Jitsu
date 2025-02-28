@@ -3,12 +3,12 @@
 #include <stdlib.h>
 #include "game.h"
 
-void init_player(player_ pl, Card allcards[], int id){
+void init_player(player_ pl, int id){
+    
+    init_Hand(pl->hand);
     
     //criar sentinela
-	pl->hand->sentinel = (Node*)malloc(sizeof(Node)); // cria baralho do jogador e a sentinela
-    pl->hand->sentinel->next = NULL;
-    pl->hand->sentinel->prev = NULL;
+    // cria baralho do jogador e a sentinela
     pl->hand->num_cards = 0;
     
     pl->choice.type = -1;
@@ -21,28 +21,16 @@ void init_player(player_ pl, Card allcards[], int id){
     
     pl->id = id;
 	
-    //inicializar ponteiros da fila
-	init_Pack(pl->pack);
-	
-	
-	
-    //coloca as cartas pelo fim da fila
-	for(int i=0; i < MAX_PACK; i++){
-		en_Pack(pl->pack, allcards[i]);
-	}
-	
     //rand as cartas da fila
-	embaralhar(pl->pack, MAX_PACK);
-	
-	init_Hand(pl->hand);
+	embaralhar(&pl->pack, MAX_PACK);
 	
     //coloca as cartas do pack na hand
 	for(int i=0; i < MAX_CARDS; i++){
-		InsertCard(pl->hand, pl->pack);
+		InsertCard(pl->hand, &pl->pack);
 	}
 }
 
-void show_hand(Hand *hand){
+void show_hand(hand_ hand){
 
 	int i = 1;
 	hand->iterador = hand->sentinel->next;
@@ -73,7 +61,7 @@ void show_hand(Hand *hand){
 
 }
 
-Card select_card(int answer, Hand* hand, pack_ pack){
+Card select_card(int answer, hand_ hand, pack_ pack){
 
 	hand->iterador = hand->sentinel;
 
@@ -81,13 +69,13 @@ Card select_card(int answer, Hand* hand, pack_ pack){
         hand->iterador = hand->iterador->next;
     }
 
-    node_ aux = hand->iterador;
+    Card aux = hand->iterador->item;
 
     hand->iterador->item = re_Pack(pack);
-    en_Pack(pack, aux->item);
+    en_Pack(pack, aux);
     //
 
-	return aux->item;
+	return aux;
 }
 
 int win(player_ pl){

@@ -11,17 +11,19 @@ int main(){
 	Player player1, player2;
 	player_ p1 = &player1;
 	player_ p2 = &player2;
-	
 	char answer;
 	int round_ = 0;
-
+	
 	Card allcards[] = {{0, 1}, {0, 2}, {0, 3}, {0, 4}, {0, 5}, {0, 6}, {0, 7},
                     {1, 1}, {1, 2}, {1, 3}, {1, 4}, {1, 5}, {1, 6}, {1, 7},
                     {2, 1}, {2, 2}, {2, 3}, {2, 4}, {2, 5}, {2, 6}, {2, 7}}; // define todas as cartas disponiveis
+	
+	init_Pack(&p1->pack, allcards);
+	init_Pack(&p2->pack, allcards);
 
 	//criar player
-	//init_player(p1, allcards, 1);
-	init_player(p1, allcards, 2);
+	init_player(p1, 1);
+	init_player(p2, 2);
 	
 	//tela inicial
 	printf("\n CARD-JITSU \n\n");
@@ -75,7 +77,7 @@ void turn(player_ p){
 
 		//escolha
 	scanf("%d", &answer_num);
-	p->choice = select_card(answer_num, p->hand, p->pack);
+	p->choice = select_card(answer_num, p->hand, &p->pack);
 	printf("Sua escolha foi %d - %d\n", p->choice.type, p->choice.number);
 	
 	//system("clear");
