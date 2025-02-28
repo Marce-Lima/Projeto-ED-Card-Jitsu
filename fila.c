@@ -27,8 +27,9 @@ void init_Pack(pack_ pack, Card allcards[]){
 }
 
 void en_Pack(pack_ pack, Card card){
+    
     if(full_Pack(pack)){
-        printf("Não foi possível incrementar o pack");
+        printf("Não foi possível incrementar o pack\n");
         return;
     }
     
@@ -40,30 +41,45 @@ void en_Pack(pack_ pack, Card card){
     }
     
     pack->card[pack->end] = card;
+
+    pack->quantidade++;
 }
 
 Card re_Pack(pack_ pack){
+    
     Card aux = {0,0};
+    
     if(empty_Pack(pack)){
-        printf("Não foi possível retirar do o pack");
+        printf("Não foi possível retirar do o pack\n");
         return aux;
     }
     
     if(pack->start == pack->end) { // se for vazia, reinicializa os `ponteiros`
         aux = pack->card[pack->start];
-        pack->start = -1;
+        pack->start = 0;
         pack->end = -1;
     } else{
         aux = pack->card[pack->start];
         pack->start = (pack->start + 1) % MAX_PACK;
     }
+    
+    pack->quantidade--;
+    
     return aux;
 }
 
 int full_Pack(pack_ pack){
-    return ((pack->end + 1) % MAX_PACK == pack->start);
+    if(pack->quantidade > 21){
+        pack->quantidade = 21;
+    }
+    return (pack->quantidade == 21);
 }
 
 int empty_Pack(pack_ pack){
-    return (pack->start == -1);
+    if(pack->quantidade < 1){
+        pack->quantidade = 0;
+        pack->end = 0;
+	    pack->start = 0;
+    }
+    return (pack->quantidade == 0);
 }

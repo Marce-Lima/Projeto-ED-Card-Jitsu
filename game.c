@@ -4,12 +4,10 @@
 #include "game.h"
 
 void init_player(player_ pl, int id){
-    
+
+    //cria a hand e a sentinela
+    pl->hand = (hand_)malloc(sizeof(Hand));
     init_Hand(pl->hand);
-    
-    //criar sentinela
-    // cria baralho do jogador e a sentinela
-    pl->hand->num_cards = 0;
     
     pl->choice.type = -1;
     pl->choice.number = -1;
@@ -26,8 +24,10 @@ void init_player(player_ pl, int id){
 	
     //coloca as cartas do pack na hand
 	for(int i=0; i < MAX_CARDS; i++){
-		InsertCard(pl->hand, &pl->pack);
+        Card temp = re_Pack(&pl->pack);
+		insert_Hand(pl->hand, temp);
 	}
+    
 }
 
 void show_hand(hand_ hand){
@@ -35,7 +35,7 @@ void show_hand(hand_ hand){
 	int i = 1;
 	hand->iterador = hand->sentinel->next;
 
-	printf("cartas:\n");
+	printf("\n\tSuas cartas:\n\n");
 
 	while(hand->iterador != hand->sentinel){
 
@@ -81,8 +81,8 @@ Card select_card(int answer, hand_ hand, pack_ pack){
 int win(player_ pl){
 
 	if(pl->wins[0] == 3 || pl->wins[1] == 3 || pl->wins[1] == 3 || (pl->wins[0] > 0 && pl->wins[1] > 0 && pl->wins[2] > 0)){
-		printf("\nA batalha acabou, abaixem suas cartas!\n");
-		printf("A vitória pertence ao player %d!\n", pl->id);
+		printf("\n\nA batalha acabou, abaixem suas cartas!\n\n");
+		printf("<<<A vitória pertence ao player %d!>>>\n", pl->id);
 		return 1;
 	}
 
@@ -94,8 +94,11 @@ void check(player_ p1, player_ p2){
     
     Card c1 = p1->choice, c2 = p2->choice;
     
-    if(c1.type = c2.type){
-        if(c1.number == c2.number) printf("Empate");
+    if(c1.type == c2.type){
+        
+        printf("Os tipos empataram!\n");
+        
+        if(c1.number == c2.number) printf("Os números também!\n\nEmpate!\n");
         else{
             if(c1.number < c2.number){
                 results(p2);
@@ -114,6 +117,6 @@ void check(player_ p1, player_ p2){
 }
 
 void results(player_ p){
-    printf("player %d ganhou", p->id);
+    printf("\nPlayer %d ganhou!\n", p->id);
     p->wins[p->choice.type] ++;
 }

@@ -2,50 +2,80 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-int InsertCard(Hand* hand, pack_ pack){
-    
-    if(hand->num_cards == 5){
+void insert_Hand(hand_ h, Card valor){
+
+	if(h->num_cards == 5){
 	    printf("Não foi possível inserir a carta (mão cheia)");
-		return 0;
+		return;
     }
-    
-	//pode adicionar no fim mesmo tanto faz
-	Node* novo_no = (Node*)malloc(sizeof(Node));
 
-	novo_no->item = re_Pack(pack);
+    node_ new_node = (node_)malloc(sizeof(Node));
+	
+	new_node->item = valor;
+	
+	node_ last = h->sentinel->prev;
 
-	if(hand->num_cards == 0){
-		hand->sentinel->next = novo_no;
-		hand->sentinel->prev = novo_no;
-		novo_no->next = hand->sentinel;
-		novo_no->prev = hand->sentinel;
-		hand->num_cards++;
-	}else{
-		Node* temp = hand->sentinel->prev;
-		novo_no->prev = temp;
-		novo_no->next = hand->sentinel;
-		hand->sentinel->prev = novo_no;
-		temp->next = novo_no;
-		hand->num_cards++;
-	}
-	
-	return 1;
-	
+	// Inserir apos o ultimo no
+	last->next = new_node;
+	new_node->prev = last;
+	new_node->next = h->sentinel;
+	h->sentinel->prev = new_node;
+
+	h->num_cards++;
 }
 
 void init_Hand(hand_ h){
-    
-    h = (hand_)malloc(sizeof(Hand));
-    h->sentinel = (node_)malloc(sizeof(Node));
-    h->iterador = NULL;
-    h->sentinel->next = NULL;
-    h->sentinel->prev = NULL;
-    h->num_cards = 0;
-    
+
+	//alocar a sentinela
+	h->sentinel = (node_)malloc(sizeof(Node));
+	h->sentinel->next = h->sentinel;
+	h->sentinel->prev = h->sentinel;
+	h->num_cards = 0;
+
 }
 
-int RemoveCard(player_ pl, card_ rem_card){
-	//usar iterador
-	// if(pl->hand->end == NULL)
+void remove_Hand(hand_ h, int n){
+
+	if(empty_Hand(h)) return;
 	
+	h->iterador = h->sentinel->next;
+
+	for(int i=1; i<n-1; i++) {
+		h->iterador = h->iterador->next;
+	}
+
+	//card c = h->iterador->valor;
+	node_ aux = h->iterador;
+
+    aux->prev->next = aux->next;
+    aux->next->prev = aux->prev;
+
+	free(aux);
+	h->num_cards--;
+
+	return;
+
+}
+
+void destruct_Hand(hand_ h){
+    node_ iterador = h->sentinel->next;
+    node_ aux;
+
+	while(h->iterador != h->sentinel){
+		aux = h->iterador->next;  // Salvar o próximo nó
+        free(iterador);             // Liberar o nó atual
+        iterador = aux;  
+	}
+	
+	free(h->sentinel);
+	free(h);
+    return;
+}
+
+int full_Hand(hand_ h){
+    return (h->num_cards == 5);
+}
+
+int empty_Hand(hand_ h){
+	return (h->sentinel->prev == h->sentinel && h->sentinel->next == h->sentinel);
 }
